@@ -3,6 +3,6 @@
     <header>
       <h3>Shift</h3>
     </header>
-    <input placeholder="Enter amount of shift" type="text" [ngModel]="shift" value="">
+    <input placeholder="Enter amount of shift" type="text" [ngModel]="shift" value="" (input)="onChange($event.target.value)">
   </article>
 </div>

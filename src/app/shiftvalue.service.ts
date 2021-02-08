@@ -9,6 +9,7 @@ export class ShiftValueService {
   constructor() {}
 
   changeShiftValue(shift: string) {
+    console.log(shift)
     this.shiftSource.next(shift);
   }
 }
