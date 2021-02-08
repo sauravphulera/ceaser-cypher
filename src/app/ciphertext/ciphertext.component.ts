@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ShiftValueService } from '../shiftvalue.service';
 
 @Component({
@@ -9,6 +9,7 @@ export class CiphertextComponent {
 
   ciphertext: string;
   @Input() cipherDisplayText: string = "";
+  @Output() changeCipher = new EventEmitter<string>();
   plainDisplayText: string = "";
   shiftValue: string;
   constructor(public service: ShiftValueService) { 
@@ -19,7 +20,7 @@ export class CiphertextComponent {
 
   ngOnChanges() {
     console.log(this.cipherDisplayText)
-    this.ciphertext = this.cipherDisplayText;
+    this.ciphertext = this.convertToPlaintext(this.cipherDisplayText);
   }
 
   convertToPlaintext(newCiphertext) {
@@ -38,5 +39,8 @@ export class CiphertextComponent {
     this.service.currentShiftValue.subscribe((shift) => {
       this.shiftValue = shift;
     })    
+  }
+  onInputChange(text) {
+    this.changeCipher.emit(text);
   }
 }

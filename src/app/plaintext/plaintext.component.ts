@@ -19,7 +19,7 @@ export class PlaintextComponent {
     })
   }
   ngOnChanges() {
-    this.plaintext = this.cipherText;
+    this.plaintext = this.plainDisplayText;
     console.log(this.cipherText);
   }
 
