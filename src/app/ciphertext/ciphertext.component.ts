@@ -28,7 +28,7 @@ export class CiphertextComponent {
     let newString = '';
     for(let i = 0; i< newCiphertext.length; i++) {
       if(i < parseInt(this.shiftValue)) {
-        newString += String.fromCharCode(newCiphertext.charCodeAt(0) + 1);
+        newString += String.fromCharCode(newCiphertext.charCodeAt(i) + 1);
       } else {
         newString += newCiphertext[i];
       }
