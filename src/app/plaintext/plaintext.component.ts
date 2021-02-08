@@ -19,7 +19,7 @@ export class PlaintextComponent {
     })
   }
   ngOnChanges() {
-    this.plaintext = this.plainDisplayText;
+    this.plaintext = this.convertToCiphertext(this.plainDisplayText);
     console.log(this.cipherText);
   }
 
@@ -27,7 +27,7 @@ export class PlaintextComponent {
     let newString = '';
     for(let i = 0; i< newPlaintext.length; i++) {
       if(i < parseInt(this.shiftValue)) {
-        newString += String.fromCharCode(newPlaintext.charCodeAt(0) - 1);
+        newString += String.fromCharCode(newPlaintext.charCodeAt(i) - 1);
       } else {
         newString += newPlaintext[i];
       }
