@@ -10,13 +10,33 @@ export class CiphertextComponent {
   ciphertext: string;
   @Input() cipherDisplayText: string = "";
   plainDisplayText: string = "";
-  constructor(public service: ShiftValueService) { }
+  shiftValue: string;
+  constructor(public service: ShiftValueService) { 
+    this.service.currentShiftValue.subscribe((shift) => {
+      this.shiftValue = shift;
+    })
+  }
+
+  ngOnChanges() {
+    console.log(this.cipherDisplayText)
+    this.ciphertext = this.cipherDisplayText;
+  }
 
   convertToPlaintext(newCiphertext) {
- 
+    let newString = '';
+    for(let i = 0; i< newCiphertext.length; i++) {
+      if(i < parseInt(this.shiftValue)) {
+        newString += String.fromCharCode(newCiphertext.charCodeAt(0) - 1);
+      } else {
+        newString += newCiphertext[i];
+      }
+    }
+    return newString;
   }
 
   getPlainDisplayText() {
-    
+    this.service.currentShiftValue.subscribe((shift) => {
+      this.shiftValue = shift;
+    })    
   }
 }
