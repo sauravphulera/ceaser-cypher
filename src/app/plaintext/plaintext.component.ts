@@ -20,18 +20,25 @@ export class PlaintextComponent {
   }
   ngOnChanges() {
     this.plaintext = this.convertToCiphertext(this.plainDisplayText);
-    console.log(this.cipherText);
+    this.cipherDisplayText = this.plaintext;
   }
 
   convertToCiphertext(newPlaintext) {
     let newString = '';
     for(let i = 0; i< newPlaintext.length; i++) {
-      if(i < parseInt(this.shiftValue)) {
-        newString += String.fromCharCode(newPlaintext.charCodeAt(i) - 1);
-      } else {
-        newString += newPlaintext[i];
+      //get the character code of each letter
+      let c = newPlaintext.charCodeAt(i);
+
+      // handle uppercase letters
+      if(c >= 65 && c <=  90) {
+        newString += String.fromCharCode((c - 65 + parseInt(this.shiftValue)) % 26 + 65); 
+
+      // handle lowercase letters
+      }else if(c >= 97 && c <= 122){
+        newString += String.fromCharCode((c - 97 + parseInt(this.shiftValue)) % 26 + 97);
       }
-    }
+  }
+    this.cipherDisplayText = newString;
     return newString;
   }
 

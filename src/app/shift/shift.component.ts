@@ -12,6 +12,7 @@ export class ShiftComponent {
   constructor(public service: ShiftValueService) { }
 
   onChange(newShift) {
+    this.shift = newShift;
     this.service.changeShiftValue(newShift);
   }
 }

@@ -22,17 +22,28 @@ export class CiphertextComponent {
     console.log(this.cipherDisplayText)
     this.ciphertext = this.convertToPlaintext(this.cipherDisplayText);
   }
+  mod(x, y) {
+    return (x % y + y) % y;
+  }
 
   convertToPlaintext(newCiphertext) {
-    console.log(this.shiftValue)
     let newString = '';
-    for(let i = 0; i< newCiphertext.length; i++) {
-      if(i < parseInt(this.shiftValue)) {
-        newString += String.fromCharCode(newCiphertext.charCodeAt(i) + 1);
-      } else {
-        newString += newCiphertext[i];
-      }
+      for(let i = 0; i< newCiphertext.length; i++) {
+        //get the character code of each letter
+        let c = newCiphertext.charCodeAt(i);
+
+        // handle uppercase letters
+        if(c >= 65 && c <=  90) {
+          newString += String.fromCharCode( this.mod(c - 65 - parseInt(this.shiftValue),26) + 65); 
+
+        // handle lowercase letters
+        }else if(c >= 97 && c <= 122){
+          newString += String.fromCharCode( this.mod((c - 97 - parseInt(this.shiftValue)) , 26) + 97);
+        }
     }
+    newString = newString.trim();
+    console.log(newString);
+    this.plainDisplayText = newString;
     return newString;
   }
 
